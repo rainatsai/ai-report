@@ -1,15 +1,22 @@
 
 import React, { useState } from 'react';
 import { StockInput } from '@/components/StockInput';
-import { ReportSettings } from '@/components/ReportSettings';
+import { ReportFormatSelector } from '@/components/ReportFormatSelector';
+import { ReportToneSelector } from '@/components/ReportToneSelector';
+import { ReportOptions } from '@/components/ReportOptions';
+import { GenerateButton } from '@/components/GenerateButton';
 import { ReportPreview } from '@/components/ReportPreview';
-import { LanguageSelector } from '@/components/LanguageSelector';
-import { TrendingUp, FileText, BarChart3 } from 'lucide-react';
+import { PenTool } from 'lucide-react';
 
 const Index = () => {
   const [selectedStock, setSelectedStock] = useState('');
-  const [reportStyle, setReportStyle] = useState('summary');
-  const [language, setLanguage] = useState('zh-CN');
+  const [reportFormat, setReportFormat] = useState('summary');
+  const [reportTone, setReportTone] = useState('professional');
+  const [options, setOptions] = useState({
+    epsChart: true,
+    financialTable: true,
+    riskWarning: true
+  });
   const [isGenerating, setIsGenerating] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
 
@@ -25,78 +32,65 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
-      <div className="bg-white/10 backdrop-blur-md border-b border-white/20">
+      <div className="bg-white shadow-sm border-b">
         <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-center">
             <div className="flex items-center space-x-3">
-              <div className="p-2 bg-blue-500 rounded-lg">
-                <TrendingUp className="h-6 w-6 text-white" />
+              <div className="p-2 bg-blue-600 rounded-lg">
+                <PenTool className="h-6 w-6 text-white" />
               </div>
-              <h1 className="text-2xl font-bold text-white">
-                智能股票分析报告系统
+              <h1 className="text-2xl font-bold text-gray-800">
+                AI 報告撰寫工具
               </h1>
             </div>
-            <LanguageSelector 
-              language={language} 
-              onLanguageChange={setLanguage} 
-            />
           </div>
         </div>
       </div>
 
       {/* Main Content */}
       <div className="container mx-auto px-6 py-8">
-        <div className="grid lg:grid-cols-2 gap-8">
-          {/* Left Panel - Input & Settings */}
-          <div className="space-y-6">
-            {/* Feature Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
-                <FileText className="h-8 w-8 text-blue-400 mb-2" />
-                <h3 className="text-white font-semibold">自动报告</h3>
-                <p className="text-blue-200 text-sm">一键生成专业分析</p>
-              </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
-                <BarChart3 className="h-8 w-8 text-green-400 mb-2" />
-                <h3 className="text-white font-semibold">多维分析</h3>
-                <p className="text-blue-200 text-sm">基本面+技术面</p>
-              </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
-                <TrendingUp className="h-8 w-8 text-purple-400 mb-2" />
-                <h3 className="text-white font-semibold">智能推荐</h3>
-                <p className="text-blue-200 text-sm">投资建议与风险</p>
-              </div>
+        {!showPreview ? (
+          <div className="max-w-4xl mx-auto">
+            {/* Input Section */}
+            <div className="bg-white rounded-xl shadow-lg p-8 space-y-8">
+              <StockInput 
+                value={selectedStock}
+                onChange={setSelectedStock}
+              />
+              
+              <ReportFormatSelector
+                value={reportFormat}
+                onChange={setReportFormat}
+              />
+              
+              <ReportToneSelector
+                value={reportTone}
+                onChange={setReportTone}
+              />
+              
+              <ReportOptions
+                options={options}
+                onChange={setOptions}
+              />
+              
+              <GenerateButton
+                onClick={handleGenerateReport}
+                isGenerating={isGenerating}
+                disabled={!selectedStock}
+              />
             </div>
-
-            <StockInput 
-              value={selectedStock}
-              onChange={setSelectedStock}
-              language={language}
-            />
-            
-            <ReportSettings
-              reportStyle={reportStyle}
-              onReportStyleChange={setReportStyle}
-              language={language}
-              onGenerateReport={handleGenerateReport}
-              isGenerating={isGenerating}
-              disabled={!selectedStock}
-            />
           </div>
-
-          {/* Right Panel - Preview */}
-          <div>
-            <ReportPreview
-              stockCode={selectedStock}
-              reportStyle={reportStyle}
-              language={language}
-              isGenerating={isGenerating}
-              showPreview={showPreview}
-            />
-          </div>
-        </div>
+        ) : (
+          <ReportPreview
+            stockCode={selectedStock}
+            reportFormat={reportFormat}
+            reportTone={reportTone}
+            options={options}
+            onBack={() => setShowPreview(false)}
+          />
+        )}
       </div>
     </div>
   );

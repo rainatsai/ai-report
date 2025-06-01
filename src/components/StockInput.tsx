@@ -1,68 +1,69 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Search, TrendingUp } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Search, ChevronDown } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 interface StockInputProps {
   value: string;
   onChange: (value: string) => void;
-  language: string;
 }
 
-export const StockInput: React.FC<StockInputProps> = ({ value, onChange, language }) => {
-  const texts = {
-    'zh-CN': {
-      title: '股票代码输入',
-      placeholder: '请输入股票代码（如：AAPL, TSLA, 0700.HK）',
-      examples: '热门股票: AAPL, MSFT, GOOGL, TSLA, NVDA'
-    },
-    'zh-TW': {
-      title: '股票代碼輸入',
-      placeholder: '請輸入股票代碼（如：AAPL, TSLA, 0700.HK）',
-      examples: '熱門股票: AAPL, MSFT, GOOGL, TSLA, NVDA'
-    },
-    'en': {
-      title: 'Stock Code Input',
-      placeholder: 'Enter stock symbol (e.g., AAPL, TSLA, 0700.HK)',
-      examples: 'Popular stocks: AAPL, MSFT, GOOGL, TSLA, NVDA'
-    }
-  };
-
-  const text = texts[language] || texts['zh-CN'];
-
-  const popularStocks = ['AAPL', 'MSFT', 'GOOGL', 'TSLA', 'NVDA', 'META'];
+export const StockInput: React.FC<StockInputProps> = ({ value, onChange }) => {
+  const popularStocks = [
+    { code: 'AAPL', name: 'Apple Inc.' },
+    { code: 'MSFT', name: 'Microsoft Corp.' },
+    { code: 'GOOGL', name: 'Alphabet Inc.' },
+    { code: 'TSLA', name: 'Tesla Inc.' },
+    { code: 'NVDA', name: 'NVIDIA Corp.' },
+    { code: '2330.TW', name: '台積電' },
+    { code: '0700.HK', name: '騰訊控股' }
+  ];
 
   return (
-    <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
-      <div className="flex items-center space-x-2 mb-4">
-        <Search className="h-5 w-5 text-blue-400" />
-        <Label className="text-white font-semibold text-lg">{text.title}</Label>
-      </div>
-      
-      <div className="relative">
-        <Input
-          value={value}
-          onChange={(e) => onChange(e.target.value.toUpperCase())}
-          placeholder={text.placeholder}
-          className="bg-white/20 border-white/30 text-white placeholder:text-blue-200 text-lg py-3 pr-12"
-        />
-        <TrendingUp className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-blue-400" />
-      </div>
-
-      <div className="mt-4">
-        <p className="text-blue-200 text-sm mb-2">{text.examples}</p>
-        <div className="flex flex-wrap gap-2">
-          {popularStocks.map((stock) => (
-            <button
-              key={stock}
-              onClick={() => onChange(stock)}
-              className="px-3 py-1 bg-blue-500/30 hover:bg-blue-500/50 text-blue-100 rounded-full text-sm transition-colors"
-            >
-              {stock}
-            </button>
-          ))}
+    <div>
+      <Label className="text-gray-700 font-medium mb-3 block">
+        🔍 請輸入股票代碼 / 公司名稱
+      </Label>
+      <div className="flex space-x-3">
+        <div className="flex-1 relative">
+          <Input
+            value={value}
+            onChange={(e) => onChange(e.target.value.toUpperCase())}
+            placeholder="例如：AAPL, TSLA, 2330.TW"
+            className="pl-10 h-12 text-lg"
+          />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
         </div>
+        
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="h-12 px-4">
+              AAPL <ChevronDown className="ml-2 h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56">
+            {popularStocks.map((stock) => (
+              <DropdownMenuItem
+                key={stock.code}
+                onClick={() => onChange(stock.code)}
+                className="cursor-pointer"
+              >
+                <div>
+                  <div className="font-semibold">{stock.code}</div>
+                  <div className="text-sm text-gray-500">{stock.name}</div>
+                </div>
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   );

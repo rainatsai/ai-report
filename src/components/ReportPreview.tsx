@@ -78,7 +78,7 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
           <span>返回設定</span>
         </Button>
         
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap justify-end">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
@@ -104,16 +104,26 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
                 <FileImage className="mr-2 h-4 w-4" />
                 JPEG
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => handleExport('短片')} className="cursor-pointer">
-                <Video className="mr-2 h-4 w-4" />
-                短片
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => handleExport('Podcast')} className="cursor-pointer">
-                <Mic className="mr-2 h-4 w-4" />
-                Podcast
-              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          <Button
+            variant="outline"
+            onClick={() => handleExport('短片')}
+            className="border-gray-300 text-gray-700 hover:bg-gray-50 text-sm px-4 py-2"
+            size="sm"
+          >
+            <Video className="mr-2 h-4 w-4" />
+            匯出短片
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => handleExport('Podcast')}
+            className="border-gray-300 text-gray-700 hover:bg-gray-50 text-sm px-4 py-2"
+            size="sm"
+          >
+            <Mic className="mr-2 h-4 w-4" />
+            匯出 Podcast
+          </Button>
           <Button
             variant="outline"
             onClick={() => handleExport('內部分享')}
@@ -164,4 +174,3 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
     </div>
   );
 };
-

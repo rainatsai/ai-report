@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -66,7 +65,7 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
   };
 
   return (
-    <div className="max-w-7xl mx-auto space-y-6">
+    <div className="max-w-5xl mx-auto space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <Button 
@@ -129,10 +128,10 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
 
       <ResizablePanelGroup direction="horizontal" className="min-h-[900px]">
         {/* Report Preview */}
-        <ResizablePanel defaultSize={75} minSize={55}>
-          <Card className="p-8 h-full mr-3 flex flex-col">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold flex items-center space-x-2 text-gray-800">
+        <ResizablePanel defaultSize={65} minSize={48}>
+          <Card className="p-6 h-full mr-2 flex flex-col">
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="text-lg font-bold flex items-center space-x-2 text-gray-800">
                 <FileText className="h-5 w-5" />
                 <span>📄 報告預覽（可編輯）</span>
               </h2>
@@ -141,36 +140,36 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
                 編輯
               </Button>
             </div>
-              
-            {/* 可上下滑動的區域，拉長高度 */}
-            <ScrollArea className="flex-1 max-h-[700px] min-h-[450px] pr-1">
-              {/* Banner 縮小 style 並下移 */}
-              <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-md p-4 shadow group mb-5">
+            
+            {/* 可上下滑動的區域，拉長高度。Banner搬進來，Banner縮小 */}
+            <ScrollArea className="flex-1 max-h-[820px] min-h-[520px] pr-1">
+              {/* Banner 縮小 style 並下移，全部進稿件滑動區 */}
+              <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-md p-3 shadow group mb-4 text-[0.93rem] relative">
                 <Button 
                   variant="outline" 
                   size="sm" 
                   className="absolute top-2 right-2 bg-white/10 border-white/20 text-white hover:bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity z-10 px-2 py-1 text-xs"
-                  style={{ fontSize: '12px', height: '1.8rem', minWidth: 0 }}
+                  style={{ fontSize: '12px', height: '1.6rem', minWidth: 0 }}
                 >
                   <Edit3 className="h-3 w-3 mr-1" />
                   編輯
                 </Button>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center space-x-2">
                     <img 
                       src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=80&h=80&fit=crop&crop=face" 
                       alt="東聯未來證券" 
-                      className="w-12 h-12 rounded-lg bg-white p-1"
+                      className="w-10 h-10 rounded-lg bg-white p-1"
                     />
                     <div>
-                      <h2 className="text-xl font-bold leading-tight">東聯未來證券</h2>
-                      <p className="text-blue-200 text-base leading-tight">個股分析報告</p>
+                      <h2 className="text-base font-bold leading-tight">東聯未來證券</h2>
+                      <p className="text-blue-200 text-sm leading-tight">個股分析報告</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-2xl font-bold">{stockCode}</div>
-                    <div className="text-base">Apple Inc.</div>
-                    <div className="text-green-300 text-base">$175.85 (+2.45%)</div>
+                    <div className="text-lg font-bold">{stockCode}</div>
+                    <div className="text-xs">Apple Inc.</div>
+                    <div className="text-green-300 text-xs">$175.85 (+2.45%)</div>
                   </div>
                 </div>
               </div>
@@ -339,8 +338,8 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
         <ResizableHandle withHandle />
 
         {/* Chart Area */}
-        <ResizablePanel defaultSize={25} minSize={20}>
-          <Card className="p-6 h-full ml-3">
+        <ResizablePanel defaultSize={35} minSize={25}>
+          <Card className="p-8 h-full ml-2">
             <h3 className="text-lg font-semibold mb-4 flex items-center space-x-2 text-gray-800">
               <BarChart3 className="h-5 w-5" />
               <span>🖼️ 圖表區</span>

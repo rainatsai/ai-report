@@ -20,7 +20,7 @@ const Index = () => {
     riskWarning: true
   });
   const [isGenerating, setIsGenerating] = useState(false);
-  const [showPreview, setShowPreview] = useState(true);
+  const [showPreview, setShowPreview] = useState(false);
 
   const handleGenerateReport = async () => {
     if (!selectedStock) return;

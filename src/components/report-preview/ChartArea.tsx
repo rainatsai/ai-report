@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { BarChart3, Edit3, TrendingUp, Plus } from "lucide-react";
@@ -29,7 +28,7 @@ export const ChartArea: React.FC<ChartAreaProps> = ({ stockCode, onEdit }) => (
     <div className="space-y-4">
       <div className="border border-gray-200 rounded-lg p-4 bg-white">
         <div className="flex items-center justify-between mb-3">
-          <h4 className="font-medium text-gray-700">{stockCode} 技術線圖</h4>
+          <h4 className="font-medium text-gray-700 whitespace-nowrap">{stockCode} 技術線圖</h4>
           <Button variant="outline" size="sm" className="text-xs">
             <Edit3 className="h-3 w-3 mr-1" />
             編輯
@@ -70,4 +69,3 @@ export const ChartArea: React.FC<ChartAreaProps> = ({ stockCode, onEdit }) => (
     </div>
   </Card>
 );
-

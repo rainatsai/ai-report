@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -125,33 +126,11 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
         </div>
       </div>
 
-      <ResizablePanelGroup direction="horizontal" className="min-h-[600px]">
+      <ResizablePanelGroup direction="horizontal" className="min-h-[700px]">
         {/* Report Preview */}
-        <ResizablePanel defaultSize={60} minSize={40}>
-          <Card className="p-6 h-full mr-3">
-            {/* Banner - 現在放在報告預覽區內 */}
-            <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-lg p-6 shadow-lg mb-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <img 
-                    src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=80&h=80&fit=crop&crop=face" 
-                    alt="華南永昌證券" 
-                    className="w-16 h-16 rounded-lg bg-white p-2"
-                  />
-                  <div>
-                    <h2 className="text-2xl font-bold">華南永昌證券</h2>
-                    <p className="text-blue-200">專業投資分析報告</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="text-3xl font-bold">{stockCode}</div>
-                  <div className="text-lg">Apple Inc.</div>
-                  <div className="text-green-300">$175.85 (+2.45%)</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between mb-4">
+        <ResizablePanel defaultSize={70} minSize={50}>
+          <Card className="p-8 h-full mr-3">
+            <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold flex items-center space-x-2 text-gray-800">
                 <FileText className="h-5 w-5" />
                 <span>📄 報告預覽（可編輯）</span>
@@ -161,8 +140,38 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
                 編輯
               </Button>
             </div>
+
+            {/* Banner - 下移並可編輯 */}
+            <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-lg p-8 shadow-lg mb-8 relative group">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="absolute top-4 right-4 bg-white/10 border-white/20 text-white hover:bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"
+              >
+                <Edit3 className="h-3 w-3 mr-1" />
+                編輯
+              </Button>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <img 
+                    src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=80&h=80&fit=crop&crop=face" 
+                    alt="東聯未來證券" 
+                    className="w-20 h-20 rounded-lg bg-white p-2"
+                  />
+                  <div>
+                    <h2 className="text-3xl font-bold">東聯未來證券</h2>
+                    <p className="text-blue-200 text-lg">個股分析報告</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-4xl font-bold">{stockCode}</div>
+                  <div className="text-xl">Apple Inc.</div>
+                  <div className="text-green-300 text-lg">$175.85 (+2.45%)</div>
+                </div>
+              </div>
+            </div>
             
-            <div className="space-y-4 text-sm overflow-y-auto max-h-[calc(100vh-500px)]">
+            <div className="space-y-4 text-sm overflow-y-auto max-h-[calc(100vh-400px)]">
               {/* 天地圖區塊 */}
               <div className="p-4 border border-gray-200 rounded-lg bg-gradient-to-r from-red-50 to-green-50">
                 <div className="flex items-center justify-between mb-3">
@@ -312,9 +321,9 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
                     </h4>
                   </div>
                   <p className="text-orange-700 text-sm">
-                    本報告僅供參考，不構成投資建議。投資有風險，過去績效不代表未來表現。
+                    本報告僅供參考，不構成投資建議。投資有風險，過去績效不代表未来表現。
                     投資人應審慎評估投資標的與本身風險承受能力。本分析基於公開資訊，
-                    華南永昌證券不保證資訊之正確性與完整性。
+                    東聯未來證券不保證資訊之正確性與完整性。
                   </p>
                 </div>
               )}
@@ -325,7 +334,7 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
         <ResizableHandle withHandle />
 
         {/* Chart Area */}
-        <ResizablePanel defaultSize={40} minSize={30}>
+        <ResizablePanel defaultSize={30} minSize={25}>
           <Card className="p-6 h-full ml-3">
             <h3 className="text-lg font-semibold mb-4 flex items-center space-x-2 text-gray-800">
               <BarChart3 className="h-5 w-5" />

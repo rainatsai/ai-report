@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -16,10 +15,17 @@ import {
   Mic,
   TrendingUp,
   TrendingDown,
-  GripVertical
+  GripVertical,
+  ChevronDown
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 interface ReportPreviewProps {
   stockCode: string;
@@ -59,8 +65,8 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
-      {/* Banner */}
-      <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-lg p-6 shadow-lg">
+      {/* Banner - 移動到報告預覽區內 */}
+      <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-lg p-6 shadow-lg mb-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <img 
@@ -92,54 +98,50 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
           <span>返回設定</span>
         </Button>
         
-        <div className="flex flex-wrap gap-2">
-          <Button
-            onClick={() => handleExport('PDF')}
-            className="bg-gray-600 hover:bg-gray-700 text-white text-sm px-3 py-2"
-            size="sm"
-          >
-            <Download className="mr-1 h-3 w-3" />
-            PDF
-          </Button>
-          <Button
-            onClick={() => handleExport('Word')}
-            className="bg-blue-700 hover:bg-blue-800 text-white text-sm px-3 py-2"
-            size="sm"
-          >
-            <Download className="mr-1 h-3 w-3" />
-            Word
-          </Button>
-          <Button
-            onClick={() => handleExport('JPEG')}
-            className="bg-gray-500 hover:bg-gray-600 text-white text-sm px-3 py-2"
-            size="sm"
-          >
-            <FileImage className="mr-1 h-3 w-3" />
-            JPEG
-          </Button>
-          <Button
-            onClick={() => handleExport('短片')}
-            className="bg-gray-700 hover:bg-gray-800 text-white text-sm px-3 py-2"
-            size="sm"
-          >
-            <Video className="mr-1 h-3 w-3" />
-            短片
-          </Button>
-          <Button
-            onClick={() => handleExport('Podcast')}
-            className="bg-gray-600 hover:bg-gray-700 text-white text-sm px-3 py-2"
-            size="sm"
-          >
-            <Mic className="mr-1 h-3 w-3" />
-            Podcast
-          </Button>
+        <div className="flex gap-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                className="border-gray-300 text-gray-700 hover:bg-gray-50 text-sm px-4 py-2"
+                size="sm"
+              >
+                <Download className="mr-2 h-4 w-4" />
+                匯出檔案
+                <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="bg-white border shadow-lg z-50">
+              <DropdownMenuItem onClick={() => handleExport('PDF')} className="cursor-pointer">
+                <Download className="mr-2 h-4 w-4" />
+                PDF
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleExport('Word')} className="cursor-pointer">
+                <Download className="mr-2 h-4 w-4" />
+                Word
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleExport('JPEG')} className="cursor-pointer">
+                <FileImage className="mr-2 h-4 w-4" />
+                JPEG
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleExport('短片')} className="cursor-pointer">
+                <Video className="mr-2 h-4 w-4" />
+                短片
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleExport('Podcast')} className="cursor-pointer">
+                <Mic className="mr-2 h-4 w-4" />
+                Podcast
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          
           <Button
             variant="outline"
             onClick={() => handleExport('內部分享')}
-            className="border-gray-300 text-gray-700 hover:bg-gray-50 text-sm px-3 py-2"
+            className="border-gray-300 text-gray-700 hover:bg-gray-50 text-sm px-4 py-2"
             size="sm"
           >
-            <Share2 className="mr-1 h-3 w-3" />
+            <Share2 className="mr-2 h-4 w-4" />
             內部分享鏈結
           </Button>
         </div>
@@ -160,7 +162,7 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
               </Button>
             </div>
             
-            <div className="space-y-4 text-sm overflow-y-auto max-h-[calc(100vh-250px)]">
+            <div className="space-y-4 text-sm overflow-y-auto max-h-[calc(100vh-400px)]">
               {/* 天地圖區塊 */}
               <div className="p-4 border border-gray-200 rounded-lg bg-gradient-to-r from-red-50 to-green-50">
                 <div className="flex items-center justify-between mb-3">

@@ -5,16 +5,23 @@ import { Edit3, GripVertical, TrendingUp, TrendingDown, BarChart3 } from "lucide
 
 interface TechnicalAnalysisSectionProps {
   stockCode: string;
+  onEdit?: () => void;
 }
 
-export const TechnicalAnalysisSection: React.FC<TechnicalAnalysisSectionProps> = ({ stockCode }) => (
-  <div className="p-4 border border-gray-200 rounded-lg bg-gradient-to-r from-red-50 to-green-50">
+export const TechnicalAnalysisSection: React.FC<TechnicalAnalysisSectionProps> = ({ stockCode, onEdit }) => (
+  <div className="relative p-4 border border-gray-200 rounded-lg bg-gradient-to-r from-red-50 to-green-50 group">
     <div className="flex items-center justify-between mb-3">
       <h4 className="font-semibold text-gray-800 flex items-center space-x-2">
         <GripVertical className="h-4 w-4 text-gray-400 cursor-move" />
         <span>天地圖 - {stockCode} 技術分析</span>
       </h4>
-      <Button variant="outline" size="sm" className="text-xs">
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={onEdit}
+        className="text-xs opacity-0 group-hover:opacity-100 transition-opacity absolute top-4 right-4 bg-white/80 border-gray-200 text-gray-700 hover:bg-white"
+        style={{ fontSize: "12px", height: "1.5rem", minWidth: 0 }}
+      >
         <Edit3 className="h-3 w-3 mr-1" />
         編輯圖表
       </Button>
@@ -41,4 +48,3 @@ export const TechnicalAnalysisSection: React.FC<TechnicalAnalysisSectionProps> =
     </div>
   </div>
 );
-

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -6,17 +7,10 @@ import {
   Download, 
   Share2, 
   ArrowLeft, 
-  Edit3,
-  BarChart3,
-  Image,
-  Plus,
+  ChevronDown,
   FileImage,
   Video,
   Mic,
-  TrendingUp,
-  TrendingDown,
-  GripVertical,
-  ChevronDown
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
@@ -44,6 +38,7 @@ interface ReportPreviewProps {
   onBack: () => void;
 }
 
+// 編輯對話框的展示建議後續補齊
 export const ReportPreview: React.FC<ReportPreviewProps> = ({
   stockCode,
   reportFormat,
@@ -53,6 +48,14 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
   onBack
 }) => {
   const { toast } = useToast();
+  // click handler for edit
+  const handleEditSection = (section: string) => {
+    toast({
+      title: `編輯「${section}」區塊`,
+      description: '開啟編輯介面 / 對話框...',
+      duration: 1800,
+    });
+  };
 
   const handleExport = (format: string) => {
     toast({
@@ -111,7 +114,6 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          
           <Button
             variant="outline"
             onClick={() => handleExport('內部分享')}
@@ -124,37 +126,42 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
         </div>
       </div>
 
+      {/* 調整 panel 比例，Chart 更多空間 */}
       <ResizablePanelGroup direction="horizontal" className="min-h-[900px]">
-        <ResizablePanel defaultSize={65} minSize={48}>
+        <ResizablePanel defaultSize={58} minSize={40}>
           <Card className="p-6 h-full mr-2 flex flex-col">
-            <div className="flex items-center justify-between mb-5">
+            <div className="flex items-center gap-2 mb-5">
               <h2 className="text-lg font-bold flex items-center space-x-2 text-gray-800">
                 <FileText className="h-5 w-5" />
                 <span>📄 報告預覽（可編輯）</span>
               </h2>
-              <Button variant="outline" size="sm" className="border-gray-300 text-gray-700 hover:bg-gray-50">
-                <Edit3 className="h-4 w-4 mr-2" />
-                編輯
-              </Button>
+              {/* [移除] universal 編輯按鈕 */}
             </div>
             <ScrollArea className="flex-1 max-h-[820px] min-h-[520px] pr-1">
-              {/* Banner */}
-              <ReportBanner stockCode={stockCode} />
+              {/* Banner+Sections with per-section editable */}
+              <ReportBanner stockCode={stockCode} onEdit={() => handleEditSection('Banner')}/>
               <div className="space-y-4 text-sm">
-                <TechnicalAnalysisSection stockCode={stockCode} />
-                <InvestmentSection stockCode={stockCode} investmentView={investmentView} />
-                {options.financialTable && <FinancialTableSection />}
-                {options.epsChart && <EpsChartSection stockCode={stockCode} />}
-                {options.riskWarning && <RiskWarningSection />}
+                <TechnicalAnalysisSection stockCode={stockCode} onEdit={() => handleEditSection('技術分析')} />
+                <InvestmentSection stockCode={stockCode} investmentView={investmentView} onEdit={() => handleEditSection('投資分析')} />
+                {options.financialTable && (
+                  <FinancialTableSection onEdit={() => handleEditSection('財務數據')} />
+                )}
+                {options.epsChart && (
+                  <EpsChartSection stockCode={stockCode} onEdit={() => handleEditSection('EPS趨勢')} />
+                )}
+                {options.riskWarning && (
+                  <RiskWarningSection onEdit={() => handleEditSection('風險提示')} />
+                )}
               </div>
             </ScrollArea>
           </Card>
         </ResizablePanel>
         <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={35} minSize={25}>
-          <ChartArea stockCode={stockCode} />
+        <ResizablePanel defaultSize={42} minSize={20}>
+          <ChartArea stockCode={stockCode} onEdit={() => handleEditSection('圖表區')} />
         </ResizablePanel>
       </ResizablePanelGroup>
     </div>
   );
 };
+

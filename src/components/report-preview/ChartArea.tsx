@@ -6,14 +6,26 @@ import { Button } from "@/components/ui/button";
 
 interface ChartAreaProps {
   stockCode: string;
+  onEdit?: () => void;
 }
 
-export const ChartArea: React.FC<ChartAreaProps> = ({ stockCode }) => (
-  <Card className="p-8 h-full ml-2">
+export const ChartArea: React.FC<ChartAreaProps> = ({ stockCode, onEdit }) => (
+  <Card className="p-8 h-full ml-2 group relative">
     <h3 className="text-lg font-semibold mb-4 flex items-center space-x-2 text-gray-800">
       <BarChart3 className="h-5 w-5" />
       <span>🖼️ 圖表區</span>
     </h3>
+    {/* 編輯按鈕 */}
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={onEdit}
+      className="opacity-0 group-hover:opacity-100 transition-opacity absolute top-6 right-8 z-10 bg-white/80 border-gray-200 text-gray-700 hover:bg-white text-xs"
+      style={{ fontSize: "12px", height: "1.5rem", minWidth: 0 }}
+    >
+      <Edit3 className="h-3 w-3 mr-1" />
+      編輯
+    </Button>
     <div className="space-y-4">
       <div className="border border-gray-200 rounded-lg p-4 bg-white">
         <div className="flex items-center justify-between mb-3">

@@ -7,11 +7,12 @@ interface ReportBannerProps {
   stockCode: string;
   onEdit?: () => void;
 }
-
 /**
  * Banner 區塊支援拖曳與編輯
  */
-export const ReportBanner: React.FC<ReportBannerProps> = ({ stockCode, onEdit }) => (
+export const ReportBanner: React.FC<ReportBannerProps> = ({
+  stockCode, onEdit
+}) => (
   <div className="relative bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-md px-3 py-2 shadow group mb-3 text-[0.89rem] flex items-start gap-2">
     {/* 拖曳 icon */}
     <div className="flex items-center pt-1 pr-2 cursor-move select-none">
@@ -51,4 +52,3 @@ export const ReportBanner: React.FC<ReportBannerProps> = ({ stockCode, onEdit })
     </Button>
   </div>
 );
-

@@ -1,14 +1,29 @@
 
 import React from "react";
-import { GripVertical } from "lucide-react";
+import { GripVertical, Edit3 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-export const FinancialTableSection: React.FC = () => (
-  <div className="p-4 border border-gray-200 rounded-lg">
+interface FinancialTableSectionProps {
+  onEdit?: () => void;
+}
+
+export const FinancialTableSection: React.FC<FinancialTableSectionProps> = ({ onEdit }) => (
+  <div className="relative p-4 border border-gray-200 rounded-lg group">
     <div className="flex items-center justify-between mb-3">
       <h4 className="font-semibold flex items-center space-x-2 text-gray-800">
         <GripVertical className="h-4 w-4 text-gray-400 cursor-move" />
         <span>財務數據表格</span>
       </h4>
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={onEdit}
+        className="text-xs opacity-0 group-hover:opacity-100 transition-opacity absolute top-4 right-4 bg-white/80 border-gray-200 text-gray-700 hover:bg-white"
+        style={{ fontSize: "12px", height: "1.5rem", minWidth: 0 }}
+      >
+        <Edit3 className="h-3 w-3 mr-1" />
+        編輯
+      </Button>
     </div>
     <div className="bg-white border rounded overflow-hidden">
       <table className="w-full text-sm">

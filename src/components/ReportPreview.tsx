@@ -27,6 +27,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface ReportPreviewProps {
   stockCode: string;
@@ -126,10 +127,10 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
         </div>
       </div>
 
-      <ResizablePanelGroup direction="horizontal" className="min-h-[700px]">
+      <ResizablePanelGroup direction="horizontal" className="min-h-[900px]">
         {/* Report Preview */}
-        <ResizablePanel defaultSize={70} minSize={50}>
-          <Card className="p-8 h-full mr-3">
+        <ResizablePanel defaultSize={75} minSize={55}>
+          <Card className="p-8 h-full mr-3 flex flex-col">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold flex items-center space-x-2 text-gray-800">
                 <FileText className="h-5 w-5" />
@@ -140,201 +141,205 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
                 編輯
               </Button>
             </div>
-
-            {/* Banner - 下移並可編輯 */}
-            <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-lg p-8 shadow-lg mb-8 relative group">
-              <Button 
-                variant="outline" 
-                size="sm" 
-                className="absolute top-4 right-4 bg-white/10 border-white/20 text-white hover:bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"
-              >
-                <Edit3 className="h-3 w-3 mr-1" />
-                編輯
-              </Button>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <img 
-                    src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=80&h=80&fit=crop&crop=face" 
-                    alt="東聯未來證券" 
-                    className="w-20 h-20 rounded-lg bg-white p-2"
-                  />
-                  <div>
-                    <h2 className="text-3xl font-bold">東聯未來證券</h2>
-                    <p className="text-blue-200 text-lg">個股分析報告</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="text-4xl font-bold">{stockCode}</div>
-                  <div className="text-xl">Apple Inc.</div>
-                  <div className="text-green-300 text-lg">$175.85 (+2.45%)</div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="space-y-4 text-sm overflow-y-auto max-h-[calc(100vh-400px)]">
-              {/* 天地圖區塊 */}
-              <div className="p-4 border border-gray-200 rounded-lg bg-gradient-to-r from-red-50 to-green-50">
-                <div className="flex items-center justify-between mb-3">
-                  <h4 className="font-semibold text-gray-800 flex items-center space-x-2">
-                    <GripVertical className="h-4 w-4 text-gray-400 cursor-move" />
-                    <span>天地圖 - {stockCode} 技術分析</span>
-                  </h4>
-                  <Button variant="outline" size="sm" className="text-xs">
-                    <Edit3 className="h-3 w-3 mr-1" />
-                    編輯圖表
-                  </Button>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4 mb-3">
-                  <div className="flex items-center space-x-2">
-                    <TrendingUp className="h-4 w-4 text-red-600" />
-                    <span className="text-sm">天線：支撐位 $170.25</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <TrendingDown className="h-4 w-4 text-green-600" />
-                    <span className="text-sm">地線：阻力位 $180.50</span>
-                  </div>
-                </div>
-                
-                <div className="bg-white border rounded p-4 min-h-[200px] flex items-center justify-center">
-                  <div className="text-center text-gray-500">
-                    <BarChart3 className="h-12 w-12 mx-auto mb-2 text-gray-400" />
-                    <p className="text-sm">{stockCode} K線圖與天地線</p>
-                    <p className="text-xs text-gray-400 mt-1">當前價位：$175.85</p>
-                  </div>
-                </div>
-                
-                <div className="mt-3 text-xs text-gray-600 bg-yellow-50 p-2 rounded">
-                  <strong>技術解讀：</strong>{stockCode} 目前股價位於天地線中間偏上區域，突破 $180.50 阻力位後有望挑戰新高，若跌破 $170.25 支撐位則需觀察回檔幅度。
-                </div>
-              </div>
-
-              <div className="p-4 border border-gray-200 rounded-lg">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-semibold flex items-center space-x-2 text-gray-800">
-                    <GripVertical className="h-4 w-4 text-gray-400 cursor-move" />
-                    <span>{stockCode} 投資分析報告</span>
-                  </h3>
-                </div>
-                <div className="mb-3">
-                  <span className="inline-block px-2 py-1 text-xs rounded-full bg-green-100 text-green-800 mr-2">
-                    投資觀點：{getInvestmentViewText()}
-                  </span>
-                  <span className="inline-block px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800">
-                    目標價：$190
-                  </span>
-                </div>
-                <div className="text-gray-600 leading-relaxed space-y-3">
-                  <p><strong>投資亮點：</strong></p>
-                  <ul className="list-disc list-inside space-y-1 ml-4">
-                    <li>iPhone 15 系列銷售表現強勁，特別是 Pro 系列需求旺盛</li>
-                    <li>服務業務持續成長，App Store 與 iCloud 收入穩定增長</li>
-                    <li>Vision Pro 產品線為未來成長帶來新動能</li>
-                    <li>股票回購計畫持續進行，每股盈餘獲得提升</li>
-                  </ul>
-                  
-                  <p><strong>風險因素：</strong></p>
-                  <ul className="list-disc list-inside space-y-1 ml-4">
-                    <li>中國市場競爭加劇，華為回歸影響市占率</li>
-                    <li>全球經濟不確定性可能影響消費性電子需求</li>
-                    <li>供應鏈成本上升壓縮毛利率</li>
-                  </ul>
-                </div>
-              </div>
               
-              {options.financialTable && (
-                <div className="p-4 border border-gray-200 rounded-lg">
-                  <div className="flex items-center justify-between mb-3">
-                    <h4 className="font-semibold flex items-center space-x-2 text-gray-800">
-                      <GripVertical className="h-4 w-4 text-gray-400 cursor-move" />
-                      <span>財務數據表格</span>
-                    </h4>
-                  </div>
-                  <div className="bg-white border rounded overflow-hidden">
-                    <table className="w-full text-sm">
-                      <thead className="bg-gray-50">
-                        <tr>
-                          <th className="px-3 py-2 text-left">項目</th>
-                          <th className="px-3 py-2 text-right">2023</th>
-                          <th className="px-3 py-2 text-right">2022</th>
-                          <th className="px-3 py-2 text-right">2021</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr className="border-t">
-                          <td className="px-3 py-2">營收 (億美元)</td>
-                          <td className="px-3 py-2 text-right">3,832</td>
-                          <td className="px-3 py-2 text-right">3,943</td>
-                          <td className="px-3 py-2 text-right">3,658</td>
-                        </tr>
-                        <tr className="border-t">
-                          <td className="px-3 py-2">淨利 (億美元)</td>
-                          <td className="px-3 py-2 text-right">970</td>
-                          <td className="px-3 py-2 text-right">998</td>
-                          <td className="px-3 py-2 text-right">946</td>
-                        </tr>
-                        <tr className="border-t">
-                          <td className="px-3 py-2">EPS (美元)</td>
-                          <td className="px-3 py-2 text-right">6.16</td>
-                          <td className="px-3 py-2 text-right">6.11</td>
-                          <td className="px-3 py-2 text-right">5.67</td>
-                        </tr>
-                        <tr className="border-t">
-                          <td className="px-3 py-2">毛利率 (%)</td>
-                          <td className="px-3 py-2 text-right">44.1</td>
-                          <td className="px-3 py-2 text-right">43.3</td>
-                          <td className="px-3 py-2 text-right">41.8</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              )}
-              
-              {options.epsChart && (
-                <div className="p-4 border border-gray-200 rounded-lg">
-                  <div className="flex items-center justify-between mb-3">
-                    <h4 className="font-semibold flex items-center space-x-2 text-gray-800">
-                      <GripVertical className="h-4 w-4 text-gray-400 cursor-move" />
-                      <span>EPS 趨勢圖</span>
-                    </h4>
-                  </div>
-                  <div className="bg-gray-50 p-4 rounded text-center">
-                    <BarChart3 className="h-16 w-16 mx-auto mb-3 text-gray-400" />
-                    <p className="text-sm text-gray-600 mb-2">{stockCode} 每股盈餘趨勢</p>
-                    <div className="flex justify-center space-x-8 text-xs">
-                      <div>2021: $5.67</div>
-                      <div>2022: $6.11</div>
-                      <div>2023: $6.16</div>
-                      <div className="text-green-600">2024E: $6.45</div>
+            {/* 可上下滑動的區域，拉長高度 */}
+            <ScrollArea className="flex-1 max-h-[700px] min-h-[450px] pr-1">
+              {/* Banner 縮小 style 並下移 */}
+              <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-md p-4 shadow group mb-5">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="absolute top-2 right-2 bg-white/10 border-white/20 text-white hover:bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity z-10 px-2 py-1 text-xs"
+                  style={{ fontSize: '12px', height: '1.8rem', minWidth: 0 }}
+                >
+                  <Edit3 className="h-3 w-3 mr-1" />
+                  編輯
+                </Button>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <img 
+                      src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=80&h=80&fit=crop&crop=face" 
+                      alt="東聯未來證券" 
+                      className="w-12 h-12 rounded-lg bg-white p-1"
+                    />
+                    <div>
+                      <h2 className="text-xl font-bold leading-tight">東聯未來證券</h2>
+                      <p className="text-blue-200 text-base leading-tight">個股分析報告</p>
                     </div>
                   </div>
-                </div>
-              )}
-              
-              {options.riskWarning && (
-                <div className="p-4 border border-orange-200 bg-orange-50 rounded-lg">
-                  <div className="flex items-center justify-between mb-2">
-                    <h4 className="font-semibold flex items-center space-x-2 text-orange-800">
-                      <GripVertical className="h-4 w-4 text-orange-400 cursor-move" />
-                      <span>風險提示</span>
-                    </h4>
+                  <div className="text-right">
+                    <div className="text-2xl font-bold">{stockCode}</div>
+                    <div className="text-base">Apple Inc.</div>
+                    <div className="text-green-300 text-base">$175.85 (+2.45%)</div>
                   </div>
-                  <p className="text-orange-700 text-sm">
-                    本報告僅供參考，不構成投資建議。投資有風險，過去績效不代表未来表現。
-                    投資人應審慎評估投資標的與本身風險承受能力。本分析基於公開資訊，
-                    東聯未來證券不保證資訊之正確性與完整性。
-                  </p>
                 </div>
-              )}
-            </div>
+              </div>
+
+              <div className="space-y-4 text-sm">
+                {/* 天地圖區塊 */}
+                <div className="p-4 border border-gray-200 rounded-lg bg-gradient-to-r from-red-50 to-green-50">
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="font-semibold text-gray-800 flex items-center space-x-2">
+                      <GripVertical className="h-4 w-4 text-gray-400 cursor-move" />
+                      <span>天地圖 - {stockCode} 技術分析</span>
+                    </h4>
+                    <Button variant="outline" size="sm" className="text-xs">
+                      <Edit3 className="h-3 w-3 mr-1" />
+                      編輯圖表
+                    </Button>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4 mb-3">
+                    <div className="flex items-center space-x-2">
+                      <TrendingUp className="h-4 w-4 text-red-600" />
+                      <span className="text-sm">天線：支撐位 $170.25</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <TrendingDown className="h-4 w-4 text-green-600" />
+                      <span className="text-sm">地線：阻力位 $180.50</span>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white border rounded p-4 min-h-[200px] flex items-center justify-center">
+                    <div className="text-center text-gray-500">
+                      <BarChart3 className="h-12 w-12 mx-auto mb-2 text-gray-400" />
+                      <p className="text-sm">{stockCode} K線圖與天地線</p>
+                      <p className="text-xs text-gray-400 mt-1">當前價位：$175.85</p>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-3 text-xs text-gray-600 bg-yellow-50 p-2 rounded">
+                    <strong>技術解讀：</strong>{stockCode} 目前股價位於天地線中間偏上區域，突破 $180.50 阻力位後有望挑戰新高，若跌破 $170.25 支撐位則需觀察回檔幅度。
+                  </div>
+                </div>
+
+                <div className="p-4 border border-gray-200 rounded-lg">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="font-semibold flex items-center space-x-2 text-gray-800">
+                      <GripVertical className="h-4 w-4 text-gray-400 cursor-move" />
+                      <span>{stockCode} 投資分析報告</span>
+                    </h3>
+                  </div>
+                  <div className="mb-3">
+                    <span className="inline-block px-2 py-1 text-xs rounded-full bg-green-100 text-green-800 mr-2">
+                      投資觀點：{getInvestmentViewText()}
+                    </span>
+                    <span className="inline-block px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800">
+                      目標價：$190
+                    </span>
+                  </div>
+                  <div className="text-gray-600 leading-relaxed space-y-3">
+                    <p><strong>投資亮點：</strong></p>
+                    <ul className="list-disc list-inside space-y-1 ml-4">
+                      <li>iPhone 15 系列銷售表現強勁，特別是 Pro 系列需求旺盛</li>
+                      <li>服務業務持續成長，App Store 與 iCloud 收入穩定增長</li>
+                      <li>Vision Pro 產品線為未來成長帶來新動能</li>
+                      <li>股票回購計畫持續進行，每股盈餘獲得提升</li>
+                    </ul>
+                    
+                    <p><strong>風險因素：</strong></p>
+                    <ul className="list-disc list-inside space-y-1 ml-4">
+                      <li>中國市場競爭加劇，華為回歸影響市占率</li>
+                      <li>全球經濟不確定性可能影響消費性電子需求</li>
+                      <li>供應鏈成本上升壓縮毛利率</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                {options.financialTable && (
+                  <div className="p-4 border border-gray-200 rounded-lg">
+                    <div className="flex items-center justify-between mb-3">
+                      <h4 className="font-semibold flex items-center space-x-2 text-gray-800">
+                        <GripVertical className="h-4 w-4 text-gray-400 cursor-move" />
+                        <span>財務數據表格</span>
+                      </h4>
+                    </div>
+                    <div className="bg-white border rounded overflow-hidden">
+                      <table className="w-full text-sm">
+                        <thead className="bg-gray-50">
+                          <tr>
+                            <th className="px-3 py-2 text-left">項目</th>
+                            <th className="px-3 py-2 text-right">2023</th>
+                            <th className="px-3 py-2 text-right">2022</th>
+                            <th className="px-3 py-2 text-right">2021</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="border-t">
+                            <td className="px-3 py-2">營收 (億美元)</td>
+                            <td className="px-3 py-2 text-right">3,832</td>
+                            <td className="px-3 py-2 text-right">3,943</td>
+                            <td className="px-3 py-2 text-right">3,658</td>
+                          </tr>
+                          <tr className="border-t">
+                            <td className="px-3 py-2">淨利 (億美元)</td>
+                            <td className="px-3 py-2 text-right">970</td>
+                            <td className="px-3 py-2 text-right">998</td>
+                            <td className="px-3 py-2 text-right">946</td>
+                          </tr>
+                          <tr className="border-t">
+                            <td className="px-3 py-2">EPS (美元)</td>
+                            <td className="px-3 py-2 text-right">6.16</td>
+                            <td className="px-3 py-2 text-right">6.11</td>
+                            <td className="px-3 py-2 text-right">5.67</td>
+                          </tr>
+                          <tr className="border-t">
+                            <td className="px-3 py-2">毛利率 (%)</td>
+                            <td className="px-3 py-2 text-right">44.1</td>
+                            <td className="px-3 py-2 text-right">43.3</td>
+                            <td className="px-3 py-2 text-right">41.8</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+                
+                {options.epsChart && (
+                  <div className="p-4 border border-gray-200 rounded-lg">
+                    <div className="flex items-center justify-between mb-3">
+                      <h4 className="font-semibold flex items-center space-x-2 text-gray-800">
+                        <GripVertical className="h-4 w-4 text-gray-400 cursor-move" />
+                        <span>EPS 趨勢圖</span>
+                      </h4>
+                    </div>
+                    <div className="bg-gray-50 p-4 rounded text-center">
+                      <BarChart3 className="h-16 w-16 mx-auto mb-3 text-gray-400" />
+                      <p className="text-sm text-gray-600 mb-2">{stockCode} 每股盈餘趨勢</p>
+                      <div className="flex justify-center space-x-8 text-xs">
+                        <div>2021: $5.67</div>
+                        <div>2022: $6.11</div>
+                        <div>2023: $6.16</div>
+                        <div className="text-green-600">2024E: $6.45</div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
+                {options.riskWarning && (
+                  <div className="p-4 border border-orange-200 bg-orange-50 rounded-lg">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-semibold flex items-center space-x-2 text-orange-800">
+                        <GripVertical className="h-4 w-4 text-orange-400 cursor-move" />
+                        <span>風險提示</span>
+                      </h4>
+                    </div>
+                    <p className="text-orange-700 text-sm">
+                      本報告僅供參考，不構成投資建議。投資有風險，過去績效不代表未来表現。
+                      投資人應審慎評估投資標的與本身風險承受能力。本分析基於公開資訊，
+                      東聯未來證券不保證資訊之正確性與完整性。
+                    </p>
+                  </div>
+                )}
+              </div>
+            </ScrollArea>
           </Card>
         </ResizablePanel>
 
         <ResizableHandle withHandle />
 
         {/* Chart Area */}
-        <ResizablePanel defaultSize={30} minSize={25}>
+        <ResizablePanel defaultSize={25} minSize={20}>
           <Card className="p-6 h-full ml-3">
             <h3 className="text-lg font-semibold mb-4 flex items-center space-x-2 text-gray-800">
               <BarChart3 className="h-5 w-5" />

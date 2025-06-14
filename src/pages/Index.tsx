@@ -4,6 +4,7 @@ import { StockInput } from '@/components/StockInput';
 import { ReportFormatSelector } from '@/components/ReportFormatSelector';
 import { ReportToneSelector } from '@/components/ReportToneSelector';
 import { ReportOptions } from '@/components/ReportOptions';
+import { InvestmentViewSelector } from '@/components/InvestmentViewSelector';
 import { GenerateButton } from '@/components/GenerateButton';
 import { ReportPreview } from '@/components/ReportPreview';
 import { PenTool } from 'lucide-react';
@@ -12,6 +13,7 @@ const Index = () => {
   const [selectedStock, setSelectedStock] = useState('');
   const [reportFormat, setReportFormat] = useState('summary');
   const [reportTone, setReportTone] = useState('professional');
+  const [investmentView, setInvestmentView] = useState('neutral');
   const [options, setOptions] = useState({
     epsChart: true,
     financialTable: true,
@@ -69,6 +71,11 @@ const Index = () => {
                 value={reportTone}
                 onChange={setReportTone}
               />
+
+              <InvestmentViewSelector
+                value={investmentView}
+                onChange={setInvestmentView}
+              />
               
               <ReportOptions
                 options={options}
@@ -87,6 +94,7 @@ const Index = () => {
             stockCode={selectedStock}
             reportFormat={reportFormat}
             reportTone={reportTone}
+            investmentView={investmentView}
             options={options}
             onBack={() => setShowPreview(false)}
           />

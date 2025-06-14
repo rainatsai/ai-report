@@ -10,7 +10,10 @@ import {
   Edit3,
   BarChart3,
   Image,
-  Plus
+  Plus,
+  FileImage,
+  Video,
+  Mic
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -18,6 +21,7 @@ interface ReportPreviewProps {
   stockCode: string;
   reportFormat: string;
   reportTone: string;
+  investmentView: string;
   options: any;
   onBack: () => void;
 }
@@ -26,6 +30,7 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
   stockCode,
   reportFormat,
   reportTone,
+  investmentView,
   options,
   onBack
 }) => {
@@ -34,9 +39,18 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
   const handleExport = (format: string) => {
     toast({
       title: "匯出成功",
-      description: `${format} 檔案已開始下載`,
+      description: `${format} 檔案已開始下載/生成`,
       duration: 3000,
     });
+  };
+
+  const getInvestmentViewText = () => {
+    switch (investmentView) {
+      case 'bullish': return '看多';
+      case 'bearish': return '看空';
+      case 'neutral': return '持平';
+      default: return '持平';
+    }
   };
 
   return (
@@ -52,7 +66,7 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
           <span>返回設定</span>
         </Button>
         
-        <div className="flex space-x-3">
+        <div className="flex flex-wrap gap-3">
           <Button
             onClick={() => handleExport('PDF')}
             className="bg-red-600 hover:bg-red-700 text-white"
@@ -66,6 +80,27 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
           >
             <Download className="mr-2 h-4 w-4" />
             Word
+          </Button>
+          <Button
+            onClick={() => handleExport('JPEG')}
+            className="bg-green-600 hover:bg-green-700 text-white"
+          >
+            <FileImage className="mr-2 h-4 w-4" />
+            JPEG
+          </Button>
+          <Button
+            onClick={() => handleExport('短片')}
+            className="bg-purple-600 hover:bg-purple-700 text-white"
+          >
+            <Video className="mr-2 h-4 w-4" />
+            短片
+          </Button>
+          <Button
+            onClick={() => handleExport('Podcast')}
+            className="bg-orange-600 hover:bg-orange-700 text-white"
+          >
+            <Mic className="mr-2 h-4 w-4" />
+            Podcast
           </Button>
           <Button
             variant="outline"
@@ -95,10 +130,16 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
             <div className="space-y-4 text-sm">
               <div className="p-4 border border-gray-200 rounded-lg">
                 <h3 className="font-semibold mb-2">{stockCode} 投資分析報告</h3>
+                <div className="mb-2">
+                  <span className="inline-block px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800">
+                    投資觀點：{getInvestmentViewText()}
+                  </span>
+                </div>
                 <p className="text-gray-600 leading-relaxed">
                   本報告針對 {stockCode} 進行全面分析，包含基本面與技術面評估...
                   {reportFormat === 'complete' && '詳細分析公司營運狀況、財務表現及未來展望...'}
                   {reportTone === 'casual' && '用輕鬆易懂的方式為您解析投資要點...'}
+                  基於當前市場環境與公司基本面分析，我們持{getInvestmentViewText()}觀點...
                 </p>
               </div>
               

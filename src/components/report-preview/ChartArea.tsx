@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { BarChart3, Edit3, TrendingUp, Plus } from "lucide-react";
@@ -37,14 +38,14 @@ export const ChartArea: React.FC<ChartAreaProps> = ({ stockCode, onEdit }) => (
         <div className="bg-gray-50 rounded p-6 text-center min-h-[150px] flex items-center justify-center">
           <div>
             <TrendingUp className="h-8 w-8 mx-auto mb-2 text-green-600" />
-            <p className="text-sm text-gray-600">RSI: 65.4</p>
-            <p className="text-sm text-gray-600">MACD: 買進訊號</p>
+            <p className="text-sm text-gray-600 whitespace-nowrap">RSI: 65.4</p>
+            <p className="text-sm text-gray-600 whitespace-nowrap">MACD: 買進訊號</p>
           </div>
         </div>
       </div>
       <div className="border border-gray-200 rounded-lg p-4 bg-white">
         <div className="flex items-center justify-between mb-3">
-          <h4 className="font-medium text-gray-700">營收年增率圖</h4>
+          <h4 className="font-medium text-gray-700 whitespace-nowrap">營收年增率圖</h4>
           <Button variant="outline" size="sm" className="text-xs">
             <Edit3 className="h-3 w-3 mr-1" />
             編輯
@@ -53,8 +54,8 @@ export const ChartArea: React.FC<ChartAreaProps> = ({ stockCode, onEdit }) => (
         <div className="bg-gray-50 rounded p-6 text-center min-h-[150px] flex items-center justify-center">
           <div>
             <BarChart3 className="h-8 w-8 mx-auto mb-2 text-blue-600" />
-            <p className="text-sm text-gray-600">Q4 2023: -2.8%</p>
-            <p className="text-sm text-gray-600">Q1 2024: +4.9%</p>
+            <p className="text-sm text-gray-600 whitespace-nowrap">Q4 2023: -2.8%</p>
+            <p className="text-sm text-gray-600 whitespace-nowrap">Q1 2024: +4.9%</p>
           </div>
         </div>
       </div>

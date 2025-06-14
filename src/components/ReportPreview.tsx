@@ -59,6 +59,28 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
+      {/* Banner */}
+      <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-lg p-6 shadow-lg">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <img 
+              src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=80&h=80&fit=crop&crop=face" 
+              alt="華南永昌證券" 
+              className="w-16 h-16 rounded-lg bg-white p-2"
+            />
+            <div>
+              <h2 className="text-2xl font-bold">華南永昌證券</h2>
+              <p className="text-blue-200">專業投資分析報告</p>
+            </div>
+          </div>
+          <div className="text-right">
+            <div className="text-3xl font-bold">AAPL</div>
+            <div className="text-lg">Apple Inc.</div>
+            <div className="text-green-300">$175.85 (+2.45%)</div>
+          </div>
+        </div>
+      </div>
+
       {/* Header */}
       <div className="flex items-center justify-between">
         <Button 
@@ -144,7 +166,7 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
                 <div className="flex items-center justify-between mb-3">
                   <h4 className="font-semibold text-gray-800 flex items-center space-x-2">
                     <GripVertical className="h-4 w-4 text-gray-400 cursor-move" />
-                    <span>天地圖 - {stockCode} 技術分析</span>
+                    <span>天地圖 - AAPL 技術分析</span>
                   </h4>
                   <Button variant="outline" size="sm" className="text-xs">
                     <Edit3 className="h-3 w-3 mr-1" />
@@ -155,24 +177,24 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
                 <div className="grid grid-cols-2 gap-4 mb-3">
                   <div className="flex items-center space-x-2">
                     <TrendingUp className="h-4 w-4 text-red-600" />
-                    <span className="text-sm">天線：支撐位 $150.25</span>
+                    <span className="text-sm">天線：支撐位 $170.25</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <TrendingDown className="h-4 w-4 text-green-600" />
-                    <span className="text-sm">地線：阻力位 $165.80</span>
+                    <span className="text-sm">地線：阻力位 $180.50</span>
                   </div>
                 </div>
                 
                 <div className="bg-white border rounded p-4 min-h-[200px] flex items-center justify-center">
                   <div className="text-center text-gray-500">
                     <BarChart3 className="h-12 w-12 mx-auto mb-2 text-gray-400" />
-                    <p className="text-sm">K線圖與天地線將顯示於此</p>
-                    <p className="text-xs text-gray-400 mt-1">可拖拽調整圖表參數</p>
+                    <p className="text-sm">AAPL K線圖與天地線</p>
+                    <p className="text-xs text-gray-400 mt-1">當前價位：$175.85</p>
                   </div>
                 </div>
                 
                 <div className="mt-3 text-xs text-gray-600 bg-yellow-50 p-2 rounded">
-                  <strong>技術解讀：</strong>當前股價位於天地線中間區域，建議觀察是否突破阻力位或跌破支撐位以判斷後續走勢。
+                  <strong>技術解讀：</strong>AAPL 目前股價位於天地線中間偏上區域，突破 $180.50 阻力位後有望挑戰新高，若跌破 $170.25 支撐位則需觀察回檔幅度。
                 </div>
               </div>
 
@@ -180,46 +202,101 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="font-semibold flex items-center space-x-2 text-gray-800">
                     <GripVertical className="h-4 w-4 text-gray-400 cursor-move" />
-                    <span>{stockCode} 投資分析報告</span>
+                    <span>AAPL 投資分析報告</span>
                   </h3>
                 </div>
-                <div className="mb-2">
-                  <span className="inline-block px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800">
+                <div className="mb-3">
+                  <span className="inline-block px-2 py-1 text-xs rounded-full bg-green-100 text-green-800 mr-2">
                     投資觀點：{getInvestmentViewText()}
                   </span>
+                  <span className="inline-block px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800">
+                    目標價：$190
+                  </span>
                 </div>
-                <p className="text-gray-600 leading-relaxed">
-                  本報告針對 {stockCode} 進行全面分析，包含基本面與技術面評估...
-                  {reportFormat === 'complete' && '詳細分析公司營運狀況、財務表現及未來展望...'}
-                  {reportTone === 'casual' && '用輕鬆易懂的方式為您解析投資要點...'}
-                  基於當前市場環境與公司基本面分析，我們持{getInvestmentViewText()}觀點...
-                </p>
+                <div className="text-gray-600 leading-relaxed space-y-3">
+                  <p><strong>投資亮點：</strong></p>
+                  <ul className="list-disc list-inside space-y-1 ml-4">
+                    <li>iPhone 15 系列銷售表現強勁，特別是 Pro 系列需求旺盛</li>
+                    <li>服務業務持續成長，App Store 與 iCloud 收入穩定增長</li>
+                    <li>Vision Pro 產品線為未來成長帶來新動能</li>
+                    <li>股票回購計畫持續進行，每股盈餘獲得提升</li>
+                  </ul>
+                  
+                  <p><strong>風險因素：</strong></p>
+                  <ul className="list-disc list-inside space-y-1 ml-4">
+                    <li>中國市場競爭加劇，華為回歸影響市占率</li>
+                    <li>全球經濟不確定性可能影響消費性電子需求</li>
+                    <li>供應鏈成本上升壓縮毛利率</li>
+                  </ul>
+                </div>
               </div>
               
               {options.financialTable && (
                 <div className="p-4 border border-gray-200 rounded-lg">
-                  <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center justify-between mb-3">
                     <h4 className="font-semibold flex items-center space-x-2 text-gray-800">
                       <GripVertical className="h-4 w-4 text-gray-400 cursor-move" />
                       <span>財務數據表格</span>
                     </h4>
                   </div>
-                  <div className="bg-gray-50 p-3 rounded text-center text-gray-500">
-                    近三年財報表格將顯示於此
+                  <div className="bg-white border rounded overflow-hidden">
+                    <table className="w-full text-sm">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th className="px-3 py-2 text-left">項目</th>
+                          <th className="px-3 py-2 text-right">2023</th>
+                          <th className="px-3 py-2 text-right">2022</th>
+                          <th className="px-3 py-2 text-right">2021</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="border-t">
+                          <td className="px-3 py-2">營收 (億美元)</td>
+                          <td className="px-3 py-2 text-right">3,832</td>
+                          <td className="px-3 py-2 text-right">3,943</td>
+                          <td className="px-3 py-2 text-right">3,658</td>
+                        </tr>
+                        <tr className="border-t">
+                          <td className="px-3 py-2">淨利 (億美元)</td>
+                          <td className="px-3 py-2 text-right">970</td>
+                          <td className="px-3 py-2 text-right">998</td>
+                          <td className="px-3 py-2 text-right">946</td>
+                        </tr>
+                        <tr className="border-t">
+                          <td className="px-3 py-2">EPS (美元)</td>
+                          <td className="px-3 py-2 text-right">6.16</td>
+                          <td className="px-3 py-2 text-right">6.11</td>
+                          <td className="px-3 py-2 text-right">5.67</td>
+                        </tr>
+                        <tr className="border-t">
+                          <td className="px-3 py-2">毛利率 (%)</td>
+                          <td className="px-3 py-2 text-right">44.1</td>
+                          <td className="px-3 py-2 text-right">43.3</td>
+                          <td className="px-3 py-2 text-right">41.8</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               )}
               
               {options.epsChart && (
                 <div className="p-4 border border-gray-200 rounded-lg">
-                  <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center justify-between mb-3">
                     <h4 className="font-semibold flex items-center space-x-2 text-gray-800">
                       <GripVertical className="h-4 w-4 text-gray-400 cursor-move" />
                       <span>EPS 趨勢圖</span>
                     </h4>
                   </div>
-                  <div className="bg-gray-50 p-3 rounded text-center text-gray-500">
-                    EPS 趨勢圖表將顯示於此
+                  <div className="bg-gray-50 p-4 rounded text-center">
+                    <BarChart3 className="h-16 w-16 mx-auto mb-3 text-gray-400" />
+                    <p className="text-sm text-gray-600 mb-2">AAPL 每股盈餘趨勢</p>
+                    <div className="flex justify-center space-x-8 text-xs">
+                      <div>2021: $5.67</div>
+                      <div>2022: $6.11</div>
+                      <div>2023: $6.16</div>
+                      <div className="text-green-600">2024E: $6.45</div>
+                    </div>
                   </div>
                 </div>
               )}
@@ -233,7 +310,9 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
                     </h4>
                   </div>
                   <p className="text-orange-700 text-sm">
-                    投資有風險，過去績效不代表未來表現，請謹慎評估...
+                    本報告僅供參考，不構成投資建議。投資有風險，過去績效不代表未來表現。
+                    投資人應審慎評估投資標的與本身風險承受能力。本分析基於公開資訊，
+                    華南永昌證券不保證資訊之正確性與完整性。
                   </p>
                 </div>
               )}
@@ -252,36 +331,48 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
             </h3>
             
             <div className="space-y-4">
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">
-                <Image className="h-8 w-8 mx-auto mb-2 text-gray-400" />
-                <p className="text-sm text-gray-500 mb-3">
-                  拖拉或點擊新增圖表
-                </p>
-                <Button variant="outline" size="sm" className="border-gray-300 text-gray-700 hover:bg-gray-50">
-                  <Plus className="h-4 w-4 mr-2" />
-                  新增技術線圖
-                </Button>
+              <div className="border border-gray-200 rounded-lg p-4 bg-white">
+                <div className="flex items-center justify-between mb-3">
+                  <h4 className="font-medium text-gray-700">AAPL 技術線圖</h4>
+                  <Button variant="outline" size="sm" className="text-xs">
+                    <Edit3 className="h-3 w-3 mr-1" />
+                    編輯
+                  </Button>
+                </div>
+                <div className="bg-gray-50 rounded p-6 text-center min-h-[150px] flex items-center justify-center">
+                  <div>
+                    <TrendingUp className="h-8 w-8 mx-auto mb-2 text-green-600" />
+                    <p className="text-sm text-gray-600">RSI: 65.4</p>
+                    <p className="text-sm text-gray-600">MACD: 買進訊號</p>
+                  </div>
+                </div>
               </div>
               
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">
-                <BarChart3 className="h-8 w-8 mx-auto mb-2 text-gray-400" />
-                <p className="text-sm text-gray-500 mb-3">
-                  營收年增率圖
-                </p>
-                <Button variant="outline" size="sm" className="border-gray-300 text-gray-700 hover:bg-gray-50">
-                  <Plus className="h-4 w-4 mr-2" />
-                  新增營收圖表
-                </Button>
+              <div className="border border-gray-200 rounded-lg p-4 bg-white">
+                <div className="flex items-center justify-between mb-3">
+                  <h4 className="font-medium text-gray-700">營收年增率圖</h4>
+                  <Button variant="outline" size="sm" className="text-xs">
+                    <Edit3 className="h-3 w-3 mr-1" />
+                    編輯
+                  </Button>
+                </div>
+                <div className="bg-gray-50 rounded p-6 text-center min-h-[150px] flex items-center justify-center">
+                  <div>
+                    <BarChart3 className="h-8 w-8 mx-auto mb-2 text-blue-600" />
+                    <p className="text-sm text-gray-600">Q4 2023: -2.8%</p>
+                    <p className="text-sm text-gray-600">Q1 2024: +4.9%</p>
+                  </div>
+                </div>
               </div>
 
               <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">
-                <TrendingUp className="h-8 w-8 mx-auto mb-2 text-gray-400" />
+                <Plus className="h-8 w-8 mx-auto mb-2 text-gray-400" />
                 <p className="text-sm text-gray-500 mb-3">
-                  成交量分析圖
+                  新增更多圖表
                 </p>
                 <Button variant="outline" size="sm" className="border-gray-300 text-gray-700 hover:bg-gray-50">
                   <Plus className="h-4 w-4 mr-2" />
-                  新增成交量圖
+                  新增圖表
                 </Button>
               </div>
             </div>

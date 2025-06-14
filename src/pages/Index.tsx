@@ -10,17 +10,17 @@ import { ReportPreview } from '@/components/ReportPreview';
 import { PenTool } from 'lucide-react';
 
 const Index = () => {
-  const [selectedStock, setSelectedStock] = useState('');
+  const [selectedStock, setSelectedStock] = useState('AAPL');
   const [reportFormat, setReportFormat] = useState('summary');
   const [reportTone, setReportTone] = useState('professional');
-  const [investmentView, setInvestmentView] = useState('neutral');
+  const [investmentView, setInvestmentView] = useState('bullish');
   const [options, setOptions] = useState({
     epsChart: true,
     financialTable: true,
     riskWarning: true
   });
   const [isGenerating, setIsGenerating] = useState(false);
-  const [showPreview, setShowPreview] = useState(false);
+  const [showPreview, setShowPreview] = useState(true);
 
   const handleGenerateReport = async () => {
     if (!selectedStock) return;

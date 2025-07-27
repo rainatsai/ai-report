@@ -11,9 +11,13 @@ import {
   FileImage,
   Video,
   Mic,
+  Edit3,
+  TrendingUp,
+  BarChart3,
+  Plus,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,11 +31,10 @@ import { InvestmentSection } from './report-preview/InvestmentSection';
 import { FinancialTableSection } from './report-preview/FinancialTableSection';
 import { EpsChartSection } from './report-preview/EpsChartSection';
 import { RiskWarningSection } from './report-preview/RiskWarningSection';
-import { ChartArea } from './report-preview/ChartArea';
+
 
 interface ReportPreviewProps {
   stockCode: string;
-  reportFormat: string;
   reportTone: string;
   investmentView: string;
   options: any;
@@ -41,7 +44,6 @@ interface ReportPreviewProps {
 // 編輯對話框的展示建議後續補齊
 export const ReportPreview: React.FC<ReportPreviewProps> = ({
   stockCode,
-  reportFormat,
   reportTone,
   investmentView,
   options,
@@ -136,41 +138,83 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
         </div>
       </div>
 
-      {/* 調整 panel 比例，Chart 更多空間 */}
-      <ResizablePanelGroup direction="horizontal" className="min-h-[900px]">
-        <ResizablePanel defaultSize={58} minSize={40}>
-          <Card className="p-6 h-full mr-2 flex flex-col">
-            <div className="flex items-center gap-2 mb-5">
-              <h2 className="text-lg font-bold flex items-center space-x-2 text-gray-800">
-                <FileText className="h-5 w-5" />
-                <span>📄 報告預覽（可編輯）</span>
-              </h2>
-              {/* [移除] universal 編輯按鈕 */}
-            </div>
-            <ScrollArea className="flex-1 max-h-[820px] min-h-[520px] pr-1">
-              {/* Banner+Sections with per-section editable */}
-              <ReportBanner stockCode={stockCode} onEdit={() => handleEditSection('Banner')}/>
-              <div className="space-y-4 text-sm">
-                <TechnicalAnalysisSection stockCode={stockCode} onEdit={() => handleEditSection('技術分析')} />
-                <InvestmentSection stockCode={stockCode} investmentView={investmentView} onEdit={() => handleEditSection('投資分析')} />
-                {options.financialTable && (
-                  <FinancialTableSection onEdit={() => handleEditSection('財務數據')} />
-                )}
-                {options.epsChart && (
-                  <EpsChartSection stockCode={stockCode} onEdit={() => handleEditSection('EPS趨勢')} />
-                )}
-                {options.riskWarning && (
-                  <RiskWarningSection onEdit={() => handleEditSection('風險提示')} />
-                )}
+      <Card className="p-6">
+        <div className="flex items-center gap-2 mb-5">
+          <h2 className="text-lg font-bold flex items-center space-x-2 text-gray-800">
+            <FileText className="h-5 w-5" />
+            <span>📄 報告預覽（可編輯）</span>
+          </h2>
+        </div>
+        <ScrollArea className="max-h-[900px] min-h-[520px] pr-1">
+          {/* Banner+Sections with per-section editable */}
+          <ReportBanner stockCode={stockCode} onEdit={() => handleEditSection('Banner')}/>
+          <div className="space-y-4 text-sm">
+            <TechnicalAnalysisSection stockCode={stockCode} onEdit={() => handleEditSection('技術分析')} />
+            <InvestmentSection stockCode={stockCode} investmentView={investmentView} onEdit={() => handleEditSection('投資分析')} />
+            {options.financialTable && (
+              <FinancialTableSection onEdit={() => handleEditSection('財務數據')} />
+            )}
+            {options.epsChart && (
+              <EpsChartSection stockCode={stockCode} onEdit={() => handleEditSection('EPS趨勢')} />
+            )}
+            
+            {/* 整合的圖表區塊 */}
+            <div className="border border-gray-200 rounded-lg p-4 bg-white space-y-4">
+              <div className="flex items-center justify-between mb-3">
+                <h4 className="font-medium text-gray-700">{stockCode} 技術線圖</h4>
+                <Button variant="outline" size="sm" className="text-xs">
+                  <Edit3 className="h-3 w-3 mr-1" />
+                  編輯
+                </Button>
               </div>
-            </ScrollArea>
-          </Card>
-        </ResizablePanel>
-        <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={42} minSize={20}>
-          <ChartArea stockCode={stockCode} onEdit={() => handleEditSection('圖表區')} />
-        </ResizablePanel>
-      </ResizablePanelGroup>
+              <div className="bg-gray-50 rounded p-6 text-center min-h-[150px] flex items-center justify-center">
+                <div>
+                  <TrendingUp className="h-8 w-8 mx-auto mb-2 text-green-600" />
+                  <p className="text-sm text-gray-600">RSI: 65.4</p>
+                  <p className="text-sm text-gray-600">MACD: 買進訊號</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="border border-gray-200 rounded-lg p-4 bg-white space-y-4">
+              <div className="flex items-center justify-between mb-3">
+                <h4 className="font-medium text-gray-700">營收年增率圖</h4>
+                <Button variant="outline" size="sm" className="text-xs">
+                  <Edit3 className="h-3 w-3 mr-1" />
+                  編輯
+                </Button>
+              </div>
+              <div className="bg-gray-50 rounded p-6 text-center min-h-[150px] flex items-center justify-center">
+                <div>
+                  <BarChart3 className="h-8 w-8 mx-auto mb-2 text-blue-600" />
+                  <p className="text-sm text-gray-600">Q4 2023: -2.8%</p>
+                  <p className="text-sm text-gray-600">Q1 2024: +4.9%</p>
+                </div>
+              </div>
+            </div>
+            
+            {/* 新增圖表/文字方塊按鈕 */}
+            <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">
+              <Plus className="h-8 w-8 mx-auto mb-2 text-gray-400" />
+              <p className="text-sm text-gray-500 mb-3">新增圖表或文字方塊</p>
+              <div className="flex gap-2 justify-center">
+                <Button variant="outline" size="sm" className="border-gray-300 text-gray-700 hover:bg-gray-50">
+                  <BarChart3 className="h-4 w-4 mr-2" />
+                  新增圖表
+                </Button>
+                <Button variant="outline" size="sm" className="border-gray-300 text-gray-700 hover:bg-gray-50">
+                  <FileText className="h-4 w-4 mr-2" />
+                  新增文字方塊
+                </Button>
+              </div>
+            </div>
+            
+            {options.riskWarning && (
+              <RiskWarningSection onEdit={() => handleEditSection('風險提示')} />
+            )}
+          </div>
+        </ScrollArea>
+      </Card>
     </div>
   );
 };

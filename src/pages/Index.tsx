@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import { StockInput } from '@/components/StockInput';
-import { ReportFormatSelector } from '@/components/ReportFormatSelector';
 import { ReportToneSelector } from '@/components/ReportToneSelector';
 import { ReportOptions } from '@/components/ReportOptions';
 import { InvestmentViewSelector } from '@/components/InvestmentViewSelector';
@@ -11,7 +10,6 @@ import { PenTool } from 'lucide-react';
 
 const Index = () => {
   const [selectedStock, setSelectedStock] = useState('AAPL');
-  const [reportFormat, setReportFormat] = useState('summary');
   const [reportTone, setReportTone] = useState('professional');
   const [investmentView, setInvestmentView] = useState('bullish');
   const [options, setOptions] = useState({
@@ -62,11 +60,6 @@ const Index = () => {
                 onChange={setSelectedStock}
               />
               
-              <ReportFormatSelector
-                value={reportFormat}
-                onChange={setReportFormat}
-              />
-              
               <ReportToneSelector
                 value={reportTone}
                 onChange={setReportTone}
@@ -92,7 +85,6 @@ const Index = () => {
         ) : (
           <ReportPreview
             stockCode={selectedStock}
-            reportFormat={reportFormat}
             reportTone={reportTone}
             investmentView={investmentView}
             options={options}

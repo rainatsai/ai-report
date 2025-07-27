@@ -176,16 +176,6 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
         </Button>
         
         <div className="flex gap-2 flex-wrap justify-end">
-          <Button
-            variant="outline"
-            onClick={() => setShowAddDialog(true)}
-            className="border-blue-300 text-blue-700 hover:bg-blue-50 text-sm px-4 py-2"
-            size="sm"
-          >
-            <Plus className="mr-2 h-4 w-4" />
-            新增模組
-          </Button>
-          
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
@@ -244,13 +234,22 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
       </div>
 
       <Card className="p-6">
-        <div className="flex items-center gap-2 mb-5">
+        <div className="flex items-center justify-between gap-2 mb-5">
           <h2 className="text-lg font-bold flex items-center space-x-2 text-gray-800">
             <FileText className="h-5 w-5" />
             <span>📄 報告預覽（可編輯）</span>
           </h2>
+          <Button
+            variant="outline"
+            onClick={() => setShowAddDialog(true)}
+            className="border-blue-300 text-blue-700 hover:bg-blue-50 text-sm px-3 py-1"
+            size="sm"
+          >
+            <Plus className="mr-2 h-4 w-4" />
+            新增模組
+          </Button>
         </div>
-        <ScrollArea className="max-h-[900px] min-h-[520px] pr-1">
+        <ScrollArea className="max-h-[800px] min-h-[520px] pr-1">
           <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}
@@ -297,8 +296,8 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
                 <RiskWarningSection onEdit={() => handleEditSection('風險提示')} />
               )}
               
-              {/* 投資警語 */}
-              <div className="mt-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+              {/* 投資警語 - 放在最下方 */}
+              <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                 <p className="text-sm text-yellow-800">
                   📢 投資警語： 本資料僅供參考，無任何投資建議之意。投資涉及風險，請審慎評估自身風險承受度。
                 </p>

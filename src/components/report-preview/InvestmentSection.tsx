@@ -53,23 +53,9 @@ export const InvestmentSection: React.FC<InvestmentSectionProps> = ({
       </span>
     </div>
     <div className="text-gray-600 leading-relaxed space-y-3">
-      <p>
-        <strong>投資亮點：</strong>
+      <p className="text-gray-700 leading-relaxed">
+        近期 Apple (AAPL) 股價表現穩健，受惠於 iPhone 15 Pro 系列的熱銷與高階產品組合優化，市場需求強勁帶動整體營收提升。App Store 及雲端服務收入持續成長，也為其穩定的現金流帶來支撐。此外，Vision Pro 雖仍處於早期階段，但象徵 Apple 在空間運算領域的技術佈局，有望成為中長期的新成長動能。儘管中國市場銷售略受壓抑，但整體基本面依然穩健，短期內仍具吸引力。
       </p>
-      <ul className="list-disc list-inside space-y-1 ml-4">
-        <li>iPhone 15 系列銷售表現強勁，特別是 Pro 系列需求旺盛</li>
-        <li>服務業務持續成長，App Store 與 iCloud 收入穩定增長</li>
-        <li>Vision Pro 產品線為未來成長帶來新動能</li>
-        <li>股票回購計畫持續進行，每股盈餘獲得提升</li>
-      </ul>
-      <p>
-        <strong>風險因素：</strong>
-      </p>
-      <ul className="list-disc list-inside space-y-1 ml-4">
-        <li>中國市場競爭加劇，華為回歸影響市占率</li>
-        <li>全球經濟不確定性可能影響消費性電子需求</li>
-        <li>供應鏈成本上升壓縮毛利率</li>
-      </ul>
     </div>
   </div>
 );

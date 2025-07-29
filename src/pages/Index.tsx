@@ -6,7 +6,6 @@ import { ReportOptions } from '@/components/ReportOptions';
 import { InvestmentViewSelector } from '@/components/InvestmentViewSelector';
 import { GenerateButton } from '@/components/GenerateButton';
 import { ReportPreview } from '@/components/ReportPreview';
-import { PenTool } from 'lucide-react';
 
 const Index = () => {
   const [selectedStock, setSelectedStock] = useState('AAPL');
@@ -39,7 +38,7 @@ const Index = () => {
           <div className="flex items-center justify-center">
             <div className="flex items-center space-x-3">
               <div className="p-2 bg-blue-600 rounded-lg">
-                <PenTool className="h-6 w-6 text-white" />
+               <img src="/EUF%20logo.png" alt="Logo" className="h-6 w-auto" />
               </div>
               <h1 className="text-2xl font-bold text-gray-800">
                 AI 報告撰寫工具

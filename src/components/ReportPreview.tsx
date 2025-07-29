@@ -79,6 +79,21 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
   const { toast } = useToast();
   const [modules, setModules] = useState<ModuleData[]>([
     {
+      id: 'banner',
+      type: 'banner',
+      title: '報告標題'
+    },
+    {
+      id: 'investment-analysis',
+      type: 'investment-analysis',
+      title: '投資分析'
+    },
+    ...(options.financialTable ? [{
+      id: 'financial-table',
+      type: 'financial-table',
+      title: '財務數據'
+    }] : []),
+    {
       id: 'default-stock-chart',
       type: 'stock-chart',
       title: 'AAPL K線圖'
@@ -87,7 +102,12 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
       id: 'default-financial-data',
       type: 'financial-data',
       title: 'AAPL 財務數據 & EPS 趨勢'
-    }
+    },
+    ...(options.riskWarning ? [{
+      id: 'risk-warning',
+      type: 'risk-warning',
+      title: '風險提示'
+    }] : [])
   ]);
   const [showAddDialog, setShowAddDialog] = useState(false);
   
@@ -160,6 +180,14 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
 
   const renderModule = (module: ModuleData) => {
     switch (module.type) {
+      case 'banner':
+        return <ReportBanner stockCode={stockCode} onEdit={() => handleEditSection('Banner')} />;
+      case 'investment-analysis':
+        return <InvestmentSection stockCode={stockCode} investmentView={investmentView} onEdit={() => handleEditSection('投資分析')} />;
+      case 'financial-table':
+        return <FinancialTableSection onEdit={() => handleEditSection('財務數據')} />;
+      case 'risk-warning':
+        return <RiskWarningSection onEdit={() => handleEditSection('風險提示')} />;
       case 'stock-chart':
         return <StockChartModule symbol={stockCode} />;
       case 'stock-quote':
@@ -266,15 +294,8 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
             collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
           >
-            {/* Banner+Sections with per-section editable */}
-            <ReportBanner stockCode={stockCode} onEdit={() => handleEditSection('Banner')}/>
             <div className="space-y-4 text-sm">
-              <InvestmentSection stockCode={stockCode} investmentView={investmentView} onEdit={() => handleEditSection('投資分析')} />
-              {options.financialTable && (
-                <FinancialTableSection onEdit={() => handleEditSection('財務數據')} />
-              )}
-              
-              {/* 可拖拉的動態模組 */}
+              {/* 所有模組都可拖拉 */}
               <SortableContext items={modules.map(m => m.id)} strategy={verticalListSortingStrategy}>
                 {modules.map((module) => (
                   <DraggableModule
@@ -288,10 +309,6 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
                   </DraggableModule>
                 ))}
               </SortableContext>
-              
-              {options.riskWarning && (
-                <RiskWarningSection onEdit={() => handleEditSection('風險提示')} />
-              )}
               
               {/* 投資警語 - 放在最下方 */}
               <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">

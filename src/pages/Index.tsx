@@ -36,7 +36,7 @@ const Index = () => {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-center">
          <div className="flex items-center space-x-3">
-  <img src="/logo-transparent.png" alt="Logo" className="h-8 w-8 rounded" />
+ <img src="/euf-brand.png" alt="EUF Logo" className="h-8 w-auto" />
   <h1 className="text-2xl font-bold text-gray-800">
     AI 報告撰寫工具
   </h1>

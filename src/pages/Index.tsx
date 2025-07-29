@@ -38,7 +38,7 @@ const Index = () => {
           <div className="flex items-center justify-center">
             <div className="flex items-center space-x-3">
               <div className="p-2 bg-blue-600 rounded-lg">
-               <img src="/EUF%20logo.png" alt="Logo" className="h-6 w-auto" />
+              <img src="/EUF-logo.png" alt="Logo" className="h-6 w-auto" />
               </div>
               <h1 className="text-2xl font-bold text-gray-800">
                 AI 報告撰寫工具

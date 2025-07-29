@@ -35,16 +35,13 @@ const Index = () => {
       <div className="bg-white shadow-sm border-b">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-center">
-            <div className="flex items-center space-x-3">
-              {/* Custom icon replacing PenTool */}
-              <div
-                className="p-2 bg-blue-600 rounded-lg h-6 w-6 bg-center bg-no-repeat bg-contain"
-                style={{ backgroundImage: 'url(/EUF-logo.png)' }}
-              />
-              <h1 className="text-2xl font-bold text-gray-800">
-                AI 報告撰寫工具
-              </h1>
-            </div>
+         <div className="flex items-center space-x-3">
+  <img src="/logo-transparent.png" alt="Logo" className="h-8 w-8 rounded" />
+  <h1 className="text-2xl font-bold text-gray-800">
+    AI 報告撰寫工具
+  </h1>
+</div>
+
           </div>
         </div>
       </div>

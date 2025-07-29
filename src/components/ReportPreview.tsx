@@ -269,13 +269,9 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
             {/* Banner+Sections with per-section editable */}
             <ReportBanner stockCode={stockCode} onEdit={() => handleEditSection('Banner')}/>
             <div className="space-y-4 text-sm">
-              <TechnicalAnalysisSection stockCode={stockCode} onEdit={() => handleEditSection('技術分析')} />
               <InvestmentSection stockCode={stockCode} investmentView={investmentView} onEdit={() => handleEditSection('投資分析')} />
               {options.financialTable && (
                 <FinancialTableSection onEdit={() => handleEditSection('財務數據')} />
-              )}
-              {options.epsChart && (
-                <EpsChartSection stockCode={stockCode} onEdit={() => handleEditSection('EPS趨勢')} />
               )}
               
               {/* 可拖拉的動態模組 */}
@@ -292,16 +288,6 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
                   </DraggableModule>
                 ))}
               </SortableContext>
-              
-              {/* 新增模組按鈕 */}
-              <div 
-                className="border-2 border-dashed border-blue-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors cursor-pointer"
-                onClick={() => setShowAddDialog(true)}
-              >
-                <Plus className="h-8 w-8 mx-auto mb-2 text-blue-400" />
-                <p className="text-sm text-blue-600 mb-3">新增內容模組</p>
-                <p className="text-xs text-gray-500">點擊新增股票圖表、報價、技術分析或財務數據</p>
-              </div>
               
               {options.riskWarning && (
                 <RiskWarningSection onEdit={() => handleEditSection('風險提示')} />

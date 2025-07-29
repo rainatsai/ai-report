@@ -249,7 +249,7 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
             新增模組
           </Button>
         </div>
-        <ScrollArea className="max-h-[800px] min-h-[520px] pr-1">
+        <ScrollArea className="h-[70vh] pr-1">
           <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}

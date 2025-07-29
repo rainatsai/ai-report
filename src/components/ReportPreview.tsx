@@ -77,7 +77,18 @@ export const ReportPreview: React.FC<ReportPreviewProps> = ({
   onBack
 }) => {
   const { toast } = useToast();
-  const [modules, setModules] = useState<ModuleData[]>([]);
+  const [modules, setModules] = useState<ModuleData[]>([
+    {
+      id: 'default-stock-chart',
+      type: 'stock-chart',
+      title: 'AAPL K線圖'
+    },
+    {
+      id: 'default-financial-data',
+      type: 'financial-data',
+      title: 'AAPL 財務數據 & EPS 趨勢'
+    }
+  ]);
   const [showAddDialog, setShowAddDialog] = useState(false);
   
   const sensors = useSensors(

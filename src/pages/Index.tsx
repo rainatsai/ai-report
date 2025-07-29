@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { StockInput } from '@/components/StockInput';
 import { ReportToneSelector } from '@/components/ReportToneSelector';
@@ -21,7 +20,7 @@ const Index = () => {
 
   const handleGenerateReport = async () => {
     if (!selectedStock) return;
-    
+
     setIsGenerating(true);
     // Simulate API call
     setTimeout(() => {
@@ -37,9 +36,11 @@ const Index = () => {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-center">
             <div className="flex items-center space-x-3">
-              <div className="p-2 bg-blue-600 rounded-lg">
-              <img src="/EUF-logo.png" alt="Logo" className="h-6 w-auto" />
-              </div>
+              {/* Custom icon replacing PenTool */}
+              <div
+                className="p-2 bg-blue-600 rounded-lg h-6 w-6 bg-center bg-no-repeat bg-contain"
+                style={{ backgroundImage: 'url(/EUF-logo.png)' }}
+              />
               <h1 className="text-2xl font-bold text-gray-800">
                 AI 報告撰寫工具
               </h1>
@@ -54,11 +55,11 @@ const Index = () => {
           <div className="max-w-4xl mx-auto">
             {/* Input Section */}
             <div className="bg-white rounded-xl shadow-lg p-8 space-y-8">
-              <StockInput 
+              <StockInput
                 value={selectedStock}
                 onChange={setSelectedStock}
               />
-              
+
               <ReportToneSelector
                 value={reportTone}
                 onChange={setReportTone}
@@ -68,12 +69,12 @@ const Index = () => {
                 value={investmentView}
                 onChange={setInvestmentView}
               />
-              
+
               <ReportOptions
                 options={options}
                 onChange={setOptions}
               />
-              
+
               <GenerateButton
                 onClick={handleGenerateReport}
                 isGenerating={isGenerating}
